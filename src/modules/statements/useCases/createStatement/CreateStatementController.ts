@@ -3,9 +3,10 @@ import { container } from 'tsyringe';
 
 import { CreateStatementUseCase } from './CreateStatementUseCase';
 
-enum OperationType {
+export enum OperationType {
   DEPOSIT = 'deposit',
   WITHDRAW = 'withdraw',
+  TRANSFER = 'transfer'
 }
 
 export class CreateStatementController {
@@ -13,7 +14,7 @@ export class CreateStatementController {
     const { id: user_id } = request.user;
     const { amount, description } = request.body;
 
-    const splittedPath = request.originalUrl.split('/')
+    const splittedPath = request.originalUrl.split('/');
     const type = splittedPath[splittedPath.length - 1] as OperationType;
 
     const createStatement = container.resolve(CreateStatementUseCase);
